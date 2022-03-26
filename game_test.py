@@ -4,7 +4,7 @@ from game import Game
 
 
 def test_cell_with_no_neighbors_dies():
-    expected_live_cells = []
+    expected_live_cells = ()
     game = Game((0, 0))
 
     game.tick()
@@ -29,7 +29,7 @@ def test_cell_with_one_live_neighbor_inc_column_dies():
 
 
 def test_cells_with_three_live_neighbors_survive():
-    expected_live_cells = [(0, 0), (-1, 1), (0, 1)]
+    expected_live_cells = ((0, 0), (-1, 1), (0, 1))
     game = Game(
         (1, -1),
         *expected_live_cells,
@@ -43,10 +43,10 @@ def test_cells_with_three_live_neighbors_survive():
 
 
 def test_cell_with_two_live_neighbors_survives():
-    expected_live_cells = [(0, 0)]
+    expected_live_cells = tuple([(0, 0)])
     game = Game(
         (-1, 1),
-        *expected_live_cells,
+        (0, 0),
         (1, -1)
     )
 
@@ -58,12 +58,12 @@ def test_cell_with_two_live_neighbors_survives():
 
 
 def test_dead_cell_with_three_live_neighbors_is_born():
-    expected_live_cells = [
+    expected_live_cells = (
         (0, 0),
         (-1, 1),
         (0, 1),
         (-1, 0),
-    ]
+    )
 
     game = Game(
         (-1, 1),
