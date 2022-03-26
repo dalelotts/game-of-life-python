@@ -1,5 +1,7 @@
 install:
 	pip install -r requirements.txt
+format:
+	autopep8 --in-place --aggressive --aggressive  *.py
 lint:
 	pylint *.py
 test:

@@ -2,6 +2,7 @@ from pytest_unordered import unordered
 
 from game import Game
 
+
 def test_cell_with_no_neighbors_dies():
     expected_live_cells = []
     game = Game((0, 0))

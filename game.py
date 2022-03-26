@@ -4,6 +4,7 @@ from typing import Callable, Iterable, List, Tuple
 
 class Game:
     '''Construct with a set of live cell, then call tick() for next generation.'''
+
     def __init__(self, *live_cells: tuple[int, int]):
         self._live_cells = [*live_cells]
 
@@ -42,13 +43,19 @@ def _has_neighbors(live_cells: Iterable[tuple[int, int]], *neighborCount: int):
 
 
 def _to_neighbors(cell: Tuple[int, int]) -> Iterable[Tuple[int, int]]:
-    return map(lambda neighbor: (neighbor[0] + cell[0], neighbor[1] + cell[1]), _NEIGHBORS)
+    return map(
+        lambda neighbor: (
+            neighbor[0] + cell[0],
+            neighbor[1] + cell[1]),
+        _NEIGHBORS)
 
 
-def _count_live_neighbors(cell: Tuple[int, int], live_cells: Iterable[Tuple[int, int]]):
+def _count_live_neighbors(
+        cell: Tuple[int, int], live_cells: Iterable[Tuple[int, int]]):
     cells = list(live_cells)
     live_neighbors = filter(
-        lambda neighbor:  neighbor in cells, _to_neighbors(cell))
+        lambda neighbor: neighbor in cells,
+        _to_neighbors(cell))
     return sum(1 for _ in live_neighbors)
 
 
@@ -59,12 +66,16 @@ def _to_dead_neighbors(
     cells = set(live_cells)
 
     def dead_neighbors(cell: Tuple[int, int]) -> Iterable[Tuple[int, int]]:
-        return filter(lambda neighbor:  neighbor not in cells, _to_neighbors(cell))
+        return filter(
+            lambda neighbor: neighbor not in cells,
+            _to_neighbors(cell)
+        )
 
     return dead_neighbors
 
 
-def _new_cells(live_cells: Iterable[Tuple[int, int]]) -> Iterable[Tuple[int, int]]:
+def _new_cells(
+        live_cells: Iterable[Tuple[int, int]]) -> Iterable[Tuple[int, int]]:
     dead_neighbors = set(_flat_map(_to_dead_neighbors(live_cells), live_cells))
     return list(filter(_has_neighbors(live_cells, 3), dead_neighbors))
 

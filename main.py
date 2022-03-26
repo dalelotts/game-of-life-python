@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import sys
-from typing import Tuple
 import argparse
 import re
+from typing import Iterable, Tuple
 
 from terminaltables import AsciiTable
 
@@ -12,17 +12,18 @@ from game import Game
 DELIMITERS = r'[ ;.]'
 
 
-def main():
-    argument_parser = argparse.ArgumentParser(epilog ="e.g. ./main.py -c 0,0 0,1 0,2 1,2 2,1")
-    argument_parser.add_argument('-c',
-                                '--live-cell',
-                                action='extend',
-                                type=_cell,
-                                nargs='+',
-                                help='<Required> x,y coordinates of living cells.',
-                                required=True,
-                                default=[]
-                                )
+def main() -> None:
+    argument_parser = argparse.ArgumentParser(
+        epilog="e.g. ./main.py -c 0,0 0,1 0,2 1,2 2,1")
+    argument_parser.add_argument(
+        '-c',
+        '--live-cell',
+        action='extend',
+        type=_cell,
+        nargs='+',
+        help='<Required> x,y coordinates of living cells.',
+        required=True,
+        default=[])
     argument_parser.add_argument(
         '-v', '--version', action='version', version='%(prog)s 1.0')
     arguments = argument_parser.parse_args()
@@ -39,7 +40,7 @@ def main():
         choice = input(prompt)
 
 
-def _cell(point: str):
+def _cell(point: str) -> Tuple[int, int]:
     try:
         coordinates = re.split(DELIMITERS, point)[0]
         return tuple(map(int, coordinates.split(',')))
@@ -48,8 +49,7 @@ def _cell(point: str):
         raise argparse.ArgumentTypeError("cells must be x,y") from exception
 
 
-def render(live_cells):
-
+def render(live_cells: Iterable[Tuple[int, int]]):
     if live_cells:
         game_grid = []
 
