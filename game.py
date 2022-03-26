@@ -60,7 +60,7 @@ def _count_live_neighbors(
         lambda neighbor: neighbor in cells,
         _to_neighbors(cell))
 
-    return sum(1 for _ in live_neighbors)
+    return sum(1 for _ in live_neighbors) 
 
 
 def _to_dead_neighbors(
