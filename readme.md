@@ -38,10 +38,10 @@ make install
 ## Implementation
 
 - Test-Driven Development
-- 100% code coverage (The TDD default - Application class is excluded)
+- 100% code coverage (The TDD default - main.py is excluded)
 - Infinite grid (at least to the extent it is addressable by the Point class)
 - No `if` statements
-- Immutable objects (state within the Game is mutated internally)
+- Immutable (state within the Game is mutated internally)
 - No variable reassignments
 - No naked primitives
 - Short functions only
