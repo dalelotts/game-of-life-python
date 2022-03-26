@@ -39,6 +39,7 @@ def _has_neighbors(live_cells: Iterable[tuple[int, int]], *neighborCount: int):
     def count_neighbors(cell: Tuple[int, int]):
         live_neighbors = _count_live_neighbors(cell, live_cells)
         return live_neighbors in allowed_neighbor_count
+
     return count_neighbors
 
 
@@ -56,13 +57,13 @@ def _count_live_neighbors(
     live_neighbors = filter(
         lambda neighbor: neighbor in cells,
         _to_neighbors(cell))
+
     return sum(1 for _ in live_neighbors)
 
 
 def _to_dead_neighbors(
     live_cells: Iterable[Tuple[int, int]]
 ) -> Callable[[Tuple[int, int]], Iterable[Tuple[int, int]]]:
-
     cells = set(live_cells)
 
     def dead_neighbors(cell: Tuple[int, int]) -> Iterable[Tuple[int, int]]:
