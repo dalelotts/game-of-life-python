@@ -12,7 +12,7 @@ class Game:
 
     def tick(self):
         self._live_cells = _survivors(
-            self._live_cells) + _new_cells(self._live_cells)
+            self._live_cells) + _new_borns(self._live_cells)
 
     @property
     def live_cells(self):
@@ -77,7 +77,7 @@ def _to_dead_neighbors(
     return dead_neighbors
 
 
-def _new_cells(
+def _new_borns(
         live_cells: Iterable[tuple[int, int]]) -> Iterable[tuple[int, int]]:
     dead_neighbors = set(_flat_map(_to_dead_neighbors(live_cells), live_cells))
     return tuple(filter(_has_neighbors(live_cells, 3), dead_neighbors))
